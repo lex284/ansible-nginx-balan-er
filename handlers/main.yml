@@ -1,0 +1,14 @@
+---
+
+- name: firewaald_restart
+  systemd:
+    name: firewalld
+    state: reloaded
+
+- name: zabbix_agent_restart
+  command: systemctl restart zabbix-agent
+
+- name: httpd_restart
+  systemd:
+    name: httpd
+    state: reloaded
