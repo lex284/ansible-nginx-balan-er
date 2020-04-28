@@ -1,0 +1,42 @@
+---
+
+- name: Start provisioning
+  become: true
+
+  vars_files:
+  -  ../defaults/main.yml
+
+  tasks:
+
+  - name: Include disable SElinux task
+    import_tasks: dis_se.yml
+    when: ansible_os_family == "RedHat"
+
+  - name: Include common software tasks
+    import_tasks: common.yml
+    when: ansible_os_family == "RedHat"
+
+  - name: Include firewalld_node tasks
+    import_tasks: firewalld_node.yml
+    when: ansible_os_family == "RedHat"
+
+  - name: Include firewalld_nlb tasks
+    import_tasks: firewalld_nlb.yml
+    when: ansible_os_family == "RedHat"
+
+
+
+  - name: Include zabbix tasks
+    import_tasks: zabbix.yml
+    when: ansible_os_family == "RedHat"
+
+  - name: Include httpd tasks
+    import_tasks: httpd.yml
+    when: ansible_os_family == "RedHat"
+
+  - name: Include enable SElinux task
+    import_tasks: en_se.yml
+    when: ansible_os_family == "RedHat"
+
+  handlers:
+  - include: ../handlers/main.yml

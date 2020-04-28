@@ -1,0 +1,35 @@
+---
+
+- hosts: nodes
+
+ - name: Accept HTTP
+   firewalld:
+     service: http
+     permanent: yes
+     state: enabled
+   notify:
+     - firewalld_restart
+
+ - name: Accept HTTPS
+   firewalld:
+     service: https
+     permanent: yes
+     state: enabled
+   notify:
+     - firewalld_restart
+ 
+ - name: Accept SSH
+   firewalld:
+     service: ssh
+     permanent: yes
+     state: enabled
+   notify:
+     - firewalld_restart
+
+ - name: Accept zabbix monitoring
+   firewalld:
+     rich-rule: rule family=ipv4 source address={{ zabbix_host }} port port={{ zabbix_port }} accept
+     permanent: yes
+     state: enabled
+   notify:
+     - firewalld_restart

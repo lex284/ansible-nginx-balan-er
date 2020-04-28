@@ -1,6 +1,6 @@
 ---
 
-- name: firewaald_restart
+- name: firewalld_restart
   systemd:
     name: firewalld
     state: reloaded

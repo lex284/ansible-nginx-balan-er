@@ -1,5 +1,7 @@
 ---
 
+- hosts: all
+
  - name: Enable SElinux
    selinux:
      policy: targeted

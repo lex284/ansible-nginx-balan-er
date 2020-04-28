@@ -1,6 +1,6 @@
 [balancer]
 web.company.com ansible_connection=ssh ansible_ssh_user=ansible
 
-[web]
+[nodes]
 node01.company.com ansible_connection=ssh ansible_ssh_user=ansible
 node02.company.com ansible_connection=ssh ansible_ssh_user=ansible
