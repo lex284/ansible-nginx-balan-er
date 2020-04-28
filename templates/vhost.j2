@@ -1,0 +1,18 @@
+<VirtualHost *:80>
+        ServerName {{ site_name }}
+	ServerAlias {{ site_alias1 }}
+
+        ServerAdmin webmaster@{{ site_name }}
+        DocumentRoot /var/www/{{ site_name }}
+        <Directory "/var/www/{{ site_name }}/">
+                Options +FollowSymLinks
+                AllowOverride All
+                order allow,deny
+                allow from all
+                Include /var/www/{{ site_name }}/.htaccess
+        </Directory>
+
+        ErrorLog /var/log/httpd/{{ site_name }}.http.error.log
+        CustomLog /var/log/httpd/{{ site_name }}.http.access.log combined
+
+</VirtualHost>

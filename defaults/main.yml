@@ -6,3 +6,4 @@ zabbix_agent_repo:    http://repo.zabbix.com/zabbix/4.2/rhel/7/x86_64/zabbix-rel
 admin_host:           host
 zabbix_host:          host
 zabbix_port:          10050
+site_name:            company.com

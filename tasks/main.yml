@@ -24,6 +24,10 @@
     import_tasks: firewalld_nlb.yml
     when: ansible_os_family == "RedHat"
 
+  - name: Include httpd tasks
+    import_tasks: httpd.yml
+    when: ansible_os_family =="RedHat"
+
 
 
   - name: Include zabbix tasks

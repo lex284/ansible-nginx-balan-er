@@ -1,0 +1,39 @@
+---
+
+- hosts: nodes
+
+  - name: Install Apache
+    yum:
+      name: httpd
+      state: latest
+
+ - name: HTTPD - Make site's root dir
+   file:
+     path: /var/www/{{ site_name }}
+     mode: 0755
+     owner: root
+     group: root
+     state: directory
+
+ - name: HTTPD - Generate vhost conf file
+   template:
+     src: ../templates/vhost.j2
+     dest: /etc/httpd/conf.d/{{ site_name }}.conf
+     owner: root
+     group: root
+     mode: 0644
+   notify:
+     - httpd_restart
+
+  - name: Generate index file
+    template:
+      src: ../templates/index.html.j2
+      dest: /var/www/{{ site_name }}/index.html
+      mode: 0644
+    notify:
+      - httpd_restart
+
+  - name: Enable service Apache
+    service:
+      name: httpd
+      enabled: yes
