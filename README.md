@@ -1,2 +1,2 @@
-# ansible-nginx-balan-er
+# ansible-nginx-balancer
 Load balancer based on Nginx
