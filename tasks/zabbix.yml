@@ -1,0 +1,46 @@
+---
+
+- name: Zabbix - Add repo
+  yum:
+    name: {{ zabbix_agent_repo }}
+    state: present
+
+- name: Zabbix - Install agent
+  yum:
+    name: zabbix-agent
+    state: present
+
+- name: Zabbix - Copy PSK key
+  copy:
+    src: ../files/zabbix_agentd.psk
+    dest: /etc/zabbix/zabbix_agentd.psk
+    owner: root
+    group: root
+    mode: 0444
+
+- name: Zabbix - Conf file exist?
+  stat:
+    path: /etc/zabbix/zabbix_agentd.conf
+  register: conf_stat
+
+- name: Zabbix - Rename origin conf file
+  command: mv /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.origin
+  when: conf_stat.stat.exists
+
+- name: Zabbix - Generate conf file
+  template:
+    src: ../templates/zabbix_agentd.j2
+    dest: /etc/zabbix/zabbix_agentd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - zabbix_agent_restart 
+ 
+- name: Zabbix - Start agent
+  systemd:
+    name: zabbix-agent
+    enabled: yes
+    state: started
+    masked: no
+    
