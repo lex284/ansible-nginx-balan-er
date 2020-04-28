@@ -28,7 +28,9 @@
     import_tasks: httpd.yml
     when: ansible_os_family =="RedHat"
 
-
+  - name: Include nginx tasks
+    import_tasks: nginx.yml
+    when: ansible_os_family =="RedHat"
 
   - name: Include zabbix tasks
     import_tasks: zabbix.yml
